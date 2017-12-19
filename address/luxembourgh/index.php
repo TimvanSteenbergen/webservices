@@ -24,25 +24,27 @@ $api = new api();
 
 // message to return
 $message = array();
-
-switch($_POST["action"])
+// var_dump($_GET);
+switch($_GET["action"])
 {
+	// var_dump($params);
     case 'get':
         $params = array();
-        $params['postcode'] = isset($_POST["postcode"]) ? $_POST["postcode"] : '';
-        $params['number'] = isset($_POST["number"]) ? $_POST["number"] : '';
+        $params['postcode'] = isset($_GET["postcode"]) ? $_GET["postcode"] : '';
+        $params['number'] = isset($_GET["number"]) ? $_GET["number"] : '';
 		if (is_array($data = $api->get($params))) {
 			$message["code"] = "0";
 			$message["data"] = $data;
 		} else {
 			$message["code"] = "1";
-			$message["message"] = "Error on get method";
+			$message["message"] = "Error on get method. Postcode value: " . $params['postcode'] . 
+			' and housenumbervalue: ' . $params['number'];
 		}
 		break;
 
 	default:
 		$message["code"] = "1";
-		$message["message"] = "Unknown method " . $_POST["action"];
+		$message["message"] = "Unknown method " . $_GET["action"];
 		break;
 }
 

@@ -40,20 +40,21 @@ class api
 	 */
 	function get($params)
 	{
-		if (empty($params['postcode'])) {
+		$postcode = $this->db->real_escape_string($params['postcode']);
+		if (empty($postcode)) {
 			return 'No postalcode given to search for.';
 		}
-		$postcode = $this->db->real_escape_string($params['postcode']);
-		var_dump($postcode);
 		if (!preg_match('/^[a-zA-Z0-9]*$/', $postcode)){
 			return 'Wrong postalcode given to search for.';
 		}
+
 		$housenumber = $this->db->real_escape_string($params['number']);
 		if (!empty($housenumber)){
 			if (!preg_match('/^[a-zA-Z0-9]*$/', $housenumber)){
 			return 'Wrong format Housenumber given to search for.';
 			}
 		}
+		
 		$query = 'SELECT'
 		. ' a.postcode AS postcode'
 		. ', a.number AS number'
@@ -75,6 +76,7 @@ class api
 			$row['street'] = utf8_encode($row['street']);
 			$list[] = $row;
 		}
+		// die('sdf');
 		return $list;
 	}
 }

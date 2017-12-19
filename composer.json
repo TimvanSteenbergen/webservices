@@ -1,0 +1,7 @@
+{
+    "name": "Tims webservices",
+    "description": "Serving humanity every bit of information they need.",
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.2"
+    }
+}
